@@ -1,9 +1,15 @@
 import React from 'react'
+// import {useEffect} from 'react'
 import {Link} from "react-router-dom";
+import { useLocation } from 'react-router-dom';
 
 const Navbar = () => {
+  let location = useLocation();
+  // useEffect(() => {
+  //   console.log(location.pathname)
+  // }, [location]);
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/home">iNotebook</Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,10 +18,10 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <Link className="nav-link active" aria-current="page" to="/Home">Home</Link>
+              <Link className={`nav-link ${location.pathname==="/about"? "active": "" }`} aria-current="page" to="/Home">Home</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/About">About</Link>
+              <Link className={`nav-link ${location.pathname==="/about"? "active": "" }`} to="/About">About</Link>
             </li>
           </ul>
           <form className="d-flex" role="search">
