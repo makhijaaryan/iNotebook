@@ -88,13 +88,27 @@ const NoteSate = (props) => {
     }
 
     //Delete a note
-    const deleteNote =()=>{
-        
+    const deleteNote =(id)=>{
+      //API call here
+      console.log("Deleting note with ID: " +id)
+      const newNotes = notes.filter((note)=>{return note._id!==id})
+      setNotes(newNotes)
     }
 
     //Edit a note
-    const editNote =()=>{
-        
+    const editNote =(id, title, description,tag  )=>{
+      //API call here
+
+
+      //Logic to edit in client
+      for (let i = 0; i < notes.length; i++) {
+        const element = notes[i];
+        if(element._id === id){
+          element.title=title;
+          element.description=description;
+          element.tag=tag;
+        }
+      }
     }
 
     return(
