@@ -34,6 +34,8 @@ const NoteSate = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
     
+    const json = await response.json();
+    console.log(json);
 
     console.log("Note Added");
     
@@ -60,7 +62,7 @@ const NoteSate = (props) => {
 
       },
     });
-    const json = response.json();
+    const json = await response.json();
     console.log(json)
     console.log("Deleting note with ID: " + id)
     const newNotes = notes.filter((note) => { return note._id !== id })
@@ -71,7 +73,7 @@ const NoteSate = (props) => {
   const editNote = async (id, title, description, tag) => {
     //API call
     const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ2MGI1Mzg1OTVmNmUyZTY5NjAzNzAxIn0sImlhdCI6MTY4NDA3MDAzMH0.cKHO__O_Vfp8DvUQCIEJO45BSe6wPV9GgLBfc9xmN64"
@@ -79,20 +81,23 @@ const NoteSate = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    const json = response.json();
-    
+    const json = await response.json();
+    console.log(json);  
 
-
+    let newNotes = JSON.parse(JSON.stringify(notes))
     //Logic to edit in client
-    for (let i = 0; i < notes.length; i++) {
-      const element = notes[i];
+    for (let i = 0; i < newNotes.length; i++) {
+      const element = newNotes[i];
       if (element._id === id) {
-        element.title = title;
-        element.description = description;
-        element.tag = tag;
+        newNotes[i].title = title;
+        newNotes[i].description = description;
+        newNotes[i].tag = tag;
+        break;
       }
     }
+    setNotes(newNotes);
   }
+
 
   return (
     <noteContext.Provider value={{ notes, addNote, deleteNote, editNote, getNotes }}>
