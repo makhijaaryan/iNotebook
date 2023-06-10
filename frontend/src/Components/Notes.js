@@ -11,6 +11,8 @@ const Notes = () => {
         // eslint-disable-next-line  
     }, [])
     
+    const [checkLen, setCheckLen] = useState(false);
+
     const ref = useRef(null)
     const refClose = useRef(null)
     const [note, setNote] = useState({id:"", edit_title: "", edit_description: "", edit_tag: "default"});
@@ -30,6 +32,19 @@ const Notes = () => {
         refClose.current.click();
     }
 
+    const checkLength = (id) =>{
+        var titleElement = document.getElementById(id).value;
+        if(titleElement.length<5){
+            document.getElementById(`${id}_message`).innerHTML="Length too short!";
+            setCheckLen(false);
+        }
+        else{
+            document.getElementById(`${id}_message`).innerHTML="";
+            setCheckLen(true);
+        }
+    }
+
+
     return (
         <>
             <AddNote />
@@ -45,15 +60,17 @@ const Notes = () => {
                         </div>
                         <div className="modal-body">
                             <form className='my-3'>
-                                <div className="mb-3">
+                                <div className="my-3">
                                     <label htmlFor="edit_title" className="form-label">Title</label>
-                                    <input type="text" className="form-control" id="edit_title" name="edit_title" value={note.edit_title} onChange={onChange} />
+                                    <input type="text" className="form-control" id="edit_title" name="edit_title" value={note.edit_title} onChange={onChange} minLength={5} onBlur={()=>{checkLength('edit_title')}} required/>
+                                    <p className="text-danger" id="edit_title_message"></p>
                                 </div>
-                                <div className="mb-3">
+                                <div className="my-3">
                                     <label htmlFor="edit_description" className="form-label">Description</label>
-                                    <input type="text" className="form-control" id="edit_description" name="edit_description" value={note.edit_description} onChange={onChange} />
+                                    <input type="text" className="form-control" id="edit_description" name="edit_description" value={note.edit_description} onChange={onChange} minLength={5} onBlur={()=>{checkLength('edit_description')}}required/>
+                                    <p className="text-danger" id="edit_description_message"></p>
                                 </div>
-                                <div className="mb-3">
+                                <div className="my-3">
                                     <label htmlFor="edit_tag" className="form-label">Tag</label>
                                     <input type="text" className="form-control" id="edit_tag" name="edit_tag" value={note.edit_tag} onChange={onChange} />
                                 </div>
@@ -61,14 +78,18 @@ const Notes = () => {
                         </div>
                         <div className="modal-footer">
                             <button type="button" ref={refClose} className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" onClick={(e) => {e.preventDefault(); handleSubmit()}} className="btn btn-primary">Save changes</button>
-                            {/* <button type="button" onClick={handleSubmit()} className="btn btn-primary">Save changes</button> */}
+                            <button disabled={(note.edit_title.length<5 || note.edit_description.length<5)&& checkLen } type="button" onClick={(e) => {e.preventDefault(); handleSubmit()}} className="btn btn-primary">Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
+
+
             <div className="row my-3">
                 <h3>Your Notes</h3>
+                <div className="container">
+                    {notes.length===0 && "No notes to display"}
+                </div>
                 {notes && notes.map((note) => {
                     return <NoteItem key={note._id} updateNote={updateNote} note={note} />;
                 })}
