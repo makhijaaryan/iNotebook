@@ -21,7 +21,7 @@ const NoteSate = (props) => {
     const json = await response.json()
     setNotes(json)
   }
-  
+
   const addNote = async (title, description, tag) => {
     //API call here
     const response = await fetch(`${host}/api/notes/addnote`, {
@@ -32,9 +32,9 @@ const NoteSate = (props) => {
       },
       body: JSON.stringify({ title, description, tag }),
     });
-    
+
     const note = await response.json();
-    setNotes(notes.concat(note))    
+    setNotes(notes.concat(note))
   }
 
   //Delete a note
@@ -50,7 +50,7 @@ const NoteSate = (props) => {
     });
     const json = await response.json();
     console.log(json)
-    
+
     const newNotes = notes.filter((note) => { return note._id !== id })
     setNotes(newNotes)
   }
@@ -68,7 +68,7 @@ const NoteSate = (props) => {
       body: JSON.stringify({ title, description, tag }),
     });
     const json = await response.json();
-    console.log(json);  
+    console.log(json);
 
     let newNotes = JSON.parse(JSON.stringify(notes))
     //Logic to edit in client
