@@ -30,7 +30,7 @@ const Login = (props) => {
     }
 
     const onChange = (e) =>{
-        setCredentials(note =>({...note, [e.target.name]: e.target.value}))
+        setCredentials(credentials =>({...credentials, [e.target.name]: e.target.value}))
     }
     
     return (
