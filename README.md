@@ -50,7 +50,7 @@ git clone https://github.com/makhijaaryan/iNotebook
     npm run start
 ```
 
-The application will be accessible at [http://localhost:3000](http://localhost:3000).
+The application will be accessible locally at [http://localhost:3000](http://localhost:3000).
 
 ## Technologies Used
 
@@ -64,6 +64,10 @@ The application will be accessible at [http://localhost:3000](http://localhost:3
   - Express.js
   - MongoDB
   - Mongoose
+
+## Project Deployed at:
+
+https://inotebook-project-react.netlify.app/
 
 ## Acknowledgements
 
