@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Signup = (props) => {
     const [credentials, setCredentials] = useState({ email: "", name: "", password: "", confirm_password: "" })
@@ -7,7 +7,7 @@ const Signup = (props) => {
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-        const host = "http://localhost:5000"
+        const host = "https://i-notebook-cyubzfkyg-makhijaaryan.vercel.app"
         const { name, email, password, confirm_password } = credentials;
         if (password !== confirm_password) {
             document.getElementById('passCheck').innerHTML = "Signup Unsuccessful! Passwords need to match!";
@@ -44,7 +44,7 @@ const Signup = (props) => {
 
     return (
         <div className='container mt-5'>
-
+            <h2 className='mb-5 text-center'>iNotebook - Login</h2>
             <form onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Name</label>
@@ -66,6 +66,7 @@ const Signup = (props) => {
                 <p className="text-danger" id="passCheck"></p>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
+            <p className='mt-3 mb-5'>Already a user? <Link to='/login'>Log in here</Link></p>
         </div>
     )
 }

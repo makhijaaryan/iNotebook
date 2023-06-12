@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 const Login = (props) => {
 
@@ -7,7 +7,7 @@ const Login = (props) => {
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-        const host = "http://localhost:5000"
+        const host = "https://i-notebook-cyubzfkyg-makhijaaryan.vercel.app"
         const response = await fetch(`${host}/api/auth/login`, {
             method: "POST",
             headers: {
@@ -35,6 +35,7 @@ const Login = (props) => {
 
     return (
         <div className='mt-5'>
+            <h2 className='mb-5 text-center'>iNotebook - Login</h2>
             <form onSubmit={(e) => { e.preventDefault(); handleSubmit() }}>
                 <div className="mb-3">
                     <label htmlFor="email" className="form-label">Email address</label>
@@ -45,6 +46,7 @@ const Login = (props) => {
                     <input type="password" className="form-control" id="password" value={credentials.password} onChange={onChange} name="password" />
                 </div>
                 <button type="submit" className="btn btn-primary" >Submit</button>
+                <p className='mt-3 mb-5'>New user? <Link to='/signup'>Sign up here</Link></p>
             </form>
         </div>
     )
